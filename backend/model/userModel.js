@@ -1,4 +1,5 @@
 const mongoose = require('./db');
+const bcrypt = require('bcrypt');
 
 const userSchema = new mongoose.Schema({
   name: { type: String, required: true },
@@ -13,6 +14,15 @@ const getUserByEmail = async (email) => {
 };
 
 const createUser = async (user) => {
-  const newUser = new User(user);
+  const hashedPassword = await bcrypt.hash(user.password, 10);
+  const newUser = new User({ ...user, password: hashedPassword });
   return newUser.save();
+};
+
+const emailExists = async (email) => {
+  return await User.exists({ email });
+};
+
+const getUserById = async (_id) => {
+  return User.findOne({ _id });
 };
