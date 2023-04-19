@@ -16,7 +16,7 @@ const authMiddleware = async (req, res, next) => {
   try {
     //verify and decode token payload
     const { _id } = jwt.verify(token, SECRET_KEY);
-    const user = await User.createUser(_id);
+    const user = await User.getUserById(_id);
     if (!user) return res.sendStatus(401);
     req.user = user;
     // *** -> otherwise next() is called without passing any error object
@@ -27,3 +27,5 @@ const authMiddleware = async (req, res, next) => {
     return next(err);
   }
 };
+
+module.exports = authMiddleware;
