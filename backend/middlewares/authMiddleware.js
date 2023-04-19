@@ -16,17 +16,14 @@ const authMiddleware = async (req, res, next) => {
   try {
     //verify and decode token payload
     const { _id } = jwt.verify(token, SECRET_KEY);
-    const user = await User.findOne({ _id });
-    if (!user) {
-      res.sendStatus(401);
-      //***
-      return next();
-    }
+    const user = await User.createUser(_id);
+    if (!user) return res.sendStatus(401);
+    req.user = user;
+    // *** -> otherwise next() is called without passing any error object
+    return next();
   } catch (err) {
     //error handling middleware executed when error occurs
     res.sendStatus(401);
     return next(err);
   }
-  // *** -> otherwise next() is called without passing any error object
-  next();
 };

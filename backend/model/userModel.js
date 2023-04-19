@@ -26,3 +26,5 @@ const emailExists = async (email) => {
 const getUserById = async (_id) => {
   return User.findOne({ _id });
 };
+
+module.exports = { getUserByEmail, createUser, emailExists, getUserById };
