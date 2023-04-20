@@ -19,9 +19,7 @@ function DefaultLayout() {
 
   console.log('User --->', user);
 
-  return <div>
-    
-  </div>;
+  return <div></div>;
 }
 
 export default DefaultLayout;

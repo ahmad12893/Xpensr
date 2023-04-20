@@ -12,6 +12,12 @@ export default function Register() {
   //to navigate to home page after a successful login i.e. navigate('/') if successful
   const navigate = useNavigate();
 
+  useEffect(() => {
+    if (localStorage.getItem('xpensr-user')) {
+      navigate('/');
+    }
+  });
+
   const onFinish = async (values: RegisterComponent) => {
     try {
       //setLoading to true when logging in so spinner shows
