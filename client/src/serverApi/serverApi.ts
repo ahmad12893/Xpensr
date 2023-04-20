@@ -1,6 +1,6 @@
 import axios, { AxiosError } from 'axios';
 import { message } from 'antd';
-import { Register } from '../interfaces/register';
+import { RegisterComponent } from '../interfaces/register';
 import { LoginInterface } from '../interfaces/login';
 
 type NavigateFunction = (path: string, state?: any) => void;
@@ -9,7 +9,7 @@ interface RegistrationError {
   message: string;
 }
 
-export const RegisterFunc = async (val: Register) => {
+export const RegisterFunc = async (val: RegisterComponent) => {
   try {
     await axios.post('http://localhost:3001/register', val);
     message.success('Registration successful!');

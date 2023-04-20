@@ -39,13 +39,13 @@ function Login() {
 
   return (
     <div
-      className='h-screen w-100vw flex justify-center items-center ${styles}
+      className='h-screen w-100vw flex justify-center items-center
     bg-gradient-to-t from-teal-300 to-indigo-500 p-5
     '
     >
       {loading && <Spinner />}
       <div className='flex flex-row justify-end'>
-        <div className='h-full w-full bg-gray-400 rounded-md bg-clip-padding backdrop-filter backdrop-blur-sm bg-opacity-10 border border-none p-6 shadow-xl hover:bg-opacity-20 hover:p-10 transition-all duration-500 hover:shadow-2xl'>
+        <div className='h-[350px] w-[400px] bg-gray-400 rounded-md bg-clip-padding backdrop-filter backdrop-blur-sm bg-opacity-10 border border-none p-6 shadow-xl hover:bg-opacity-20 hover:p-10 hover:h-[400px] hover:w-[450px] transition-all duration-500 hover:shadow-2xl'>
           <h1 className='text-3xl text-white flex justify-center items-center font-semibold'>
             Login
           </h1>
