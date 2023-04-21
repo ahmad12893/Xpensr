@@ -1,24 +1,18 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { Form, Input } from 'antd';
 import { Link, useNavigate } from 'react-router-dom';
 import Spinner from '../components/Spinner';
 import { RegisterFunc } from '../serverApi/serverApi';
-import { RegisterComponent } from '../interfaces/register';
+import { RegisterInterface } from '../interfaces/register';
+import VanillaTilt from 'vanilla-tilt';
 
 export default function Register() {
   //for spinner loading animation
   const [loading, setLoading] = useState(false);
 
-  //to navigate to home page after a successful login i.e. navigate('/') if successful
   const navigate = useNavigate();
 
-  useEffect(() => {
-    if (localStorage.getItem('xpensr-user')) {
-      navigate('/');
-    }
-  });
-
-  const onFinish = async (values: RegisterComponent) => {
+  const onFinish = async (values: RegisterInterface) => {
     try {
       //setLoading to true when logging in so spinner shows
       setLoading(true);
@@ -26,7 +20,7 @@ export default function Register() {
       setTimeout(
         async () => {
           //execute login when the timer runs fully
-          await RegisterFunc(values);
+          await RegisterFunc(values, navigate);
           //stop loading when timer is done
           setLoading(false);
         }, //add a function to simulate random loading for a couple seconds
@@ -41,7 +35,7 @@ export default function Register() {
   return (
     <div
       className='h-screen w-100vw flex justify-center items-center
-    bg-gradient-to-t from-teal-300 to-indigo-500 p-5
+    bg-gradient-to-t from-teal-300 to-indigo-600 p-5
     '
     >
       {loading && <Spinner />}
@@ -55,7 +49,7 @@ export default function Register() {
         ></lottie-player>
       </div>
 
-      <div className='h-[450px] w-[400px] bg-gray-400 rounded-md bg-clip-padding backdrop-filter backdrop-blur-sm bg-opacity-10 border border-none p-6 shadow-xl hover:bg-opacity-20 hover:p-10 hover:h-[500px] hover:w-[450px] transition-all duration-500 hover:shadow-2xl'>
+      <div className='h-[450px] w-[400px] bg-gray-400 rounded-md bg-clip-padding backdrop-filter backdrop-blur-sm bg-opacity-10 border border-none p-6 shadow-xl hover:bg-opacity-20 transition-all duration-500 hover:shadow-2xl'>
         <h1 className='text-3xl text-white flex justify-center items-center font-semibold'>
           Register
         </h1>

@@ -1,9 +1,11 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { Form, Input } from 'antd';
 import { Link, useNavigate } from 'react-router-dom';
 import Spinner from '../components/Spinner';
 import { LoginFunc } from '../serverApi/serverApi';
 import { LoginInterface } from '../interfaces/login';
+import VanillaTilt from 'vanilla-tilt';
+
 function Login() {
   //for spinner loading animation
   const [loading, setLoading] = useState(false);
@@ -37,15 +39,31 @@ function Login() {
     }
   };
 
+  const tiltDiv = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    if (tiltDiv.current) {
+      VanillaTilt.init(tiltDiv.current, {
+        max: 25,
+        speed: 400,
+        glare: true,
+        'max-glare': 0.5,
+      });
+    }
+  }, []);
+
   return (
     <div
       className='h-screen w-100vw flex justify-center items-center
-    bg-gradient-to-t from-teal-300 to-indigo-500 p-5
+    bg-gradient-to-t from-teal-300 to-indigo-600 p-5
     '
     >
       {loading && <Spinner />}
       <div className='flex flex-row justify-end'>
-        <div className='h-[350px] w-[400px] bg-gray-400 rounded-md bg-clip-padding backdrop-filter backdrop-blur-sm bg-opacity-10 border border-none p-6 shadow-xl hover:bg-opacity-20 hover:p-10 hover:h-[400px] hover:w-[450px] transition-all duration-500 hover:shadow-2xl'>
+        <div
+          className='h-[350px] w-[400px] bg-gray-400 rounded-md bg-clip-padding backdrop-filter backdrop-blur-sm bg-opacity-10 border border-none p-6 shadow-xl hover:bg-opacity-20  transition-all duration-500 hover:shadow-2xl'
+          ref={tiltDiv}
+        >
           <h1 className='text-3xl text-white flex justify-center items-center font-semibold'>
             Login
           </h1>
@@ -80,7 +98,7 @@ function Login() {
           </Form>
         </div>
       </div>
-      <div className=''>
+      <div className='' ref={tiltDiv}>
         <lottie-player
           src='https://assets10.lottiefiles.com/private_files/lf30_aXRkcv.json'
           background='transparent'
