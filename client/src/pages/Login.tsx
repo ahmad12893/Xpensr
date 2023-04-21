@@ -11,7 +11,10 @@ function Login() {
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
-    if (localStorage.getItem('xpensr-user')) {
+    if (
+      localStorage.getItem('xpensr-user') &&
+      localStorage.getItem('xpensr-token')
+    ) {
       navigate('/');
     }
   });

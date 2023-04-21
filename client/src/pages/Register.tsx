@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Form, Input } from 'antd';
 import { Link, useNavigate } from 'react-router-dom';
 import Spinner from '../components/Spinner';
@@ -11,6 +11,14 @@ export default function Register() {
 
   const navigate = useNavigate();
 
+  useEffect(() => {
+    if (
+      localStorage.getItem('xpensr-user') &&
+      localStorage.getItem('xpensr-token')
+    ) {
+      navigate('/');
+    }
+  });
   const onFinish = async (values: RegisterInterface) => {
     try {
       //setLoading to true when logging in so spinner shows
