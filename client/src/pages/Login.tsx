@@ -61,7 +61,7 @@ function Login() {
       {loading && <Spinner />}
       <div className='flex flex-row justify-end'>
         <div
-          className='h-[350px] w-[400px] bg-gray-400 rounded-md bg-clip-padding backdrop-filter backdrop-blur-sm bg-opacity-10 border border-none p-6 shadow-xl hover:bg-opacity-20  transition-all duration-500 hover:shadow-2xl'
+          className='h-[350px] w-[400px] bg-gray-400 rounded-md bg-clip-padding backdrop-filter backdrop-blur-sm bg-opacity-10 border border-none p-6 shadow-xl hover:bg-opacity-20  transition-all duration-500 hover:shadow-2xl mr-12 '
           ref={tiltDiv}
         >
           <h1 className='text-3xl text-white flex justify-center items-center font-semibold'>

@@ -1,10 +1,9 @@
-import { useEffect, useRef, useState } from 'react';
+import { useState } from 'react';
 import { Form, Input } from 'antd';
 import { Link, useNavigate } from 'react-router-dom';
 import Spinner from '../components/Spinner';
 import { RegisterFunc } from '../serverApi/serverApi';
 import { RegisterInterface } from '../interfaces/register';
-import VanillaTilt from 'vanilla-tilt';
 
 export default function Register() {
   //for spinner loading animation

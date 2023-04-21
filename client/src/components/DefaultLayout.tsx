@@ -69,7 +69,7 @@ function DefaultLayout(props: {
           </PopupState>
         </div>
       </div>
-      <div className='flex self-center h-[88vh] border-none rounded-xl w-[95vw] mt-5 p-3 text-xl bg-white hover:shadow-2xl transition duration-500 opacity-95 hover:opacity-100'>
+      <div className='flex self-center h-[100vh] border-none rounded-t-xl w-[95vw] mt-5 p-3 text-xl bg-white hover:shadow-2xl transition duration-500 opacity-95 hover:opacity-100'>
         {props.children}
       </div>
     </div>
