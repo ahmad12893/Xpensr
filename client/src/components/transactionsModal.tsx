@@ -47,21 +47,23 @@ function TransactionsModal({
 
         <Form.Item label='Type' name='type'>
           <Select>
-            <Select.Option value='income'>Income</Select.Option>
-            <Select.Option value='expense'>Expense</Select.Option>
+            <Select.Option value='Income'>Income</Select.Option>
+            <Select.Option value='Expense'>Expense</Select.Option>
           </Select>
         </Form.Item>
 
-        <Form.Item label='Type' name='type'>
+        <Form.Item label='Category' name='category'>
           <Select>
-            <Select.Option value='income'>Income</Select.Option>
-            <Select.Option value='expense'>Expense</Select.Option>
-            <Select.Option value='income'>Income</Select.Option>
-            <Select.Option value='expense'>Expense</Select.Option>
-            <Select.Option value='income'>Income</Select.Option>
-            <Select.Option value='expense'>Expense</Select.Option>
-            <Select.Option value='income'>Income</Select.Option>
-            <Select.Option value='expense'>Expense</Select.Option>
+            <Select.Option value='Salary'>Salary</Select.Option>
+            <Select.Option value='Food'>Food</Select.Option>
+            <Select.Option value='Entertainment'>Entertainment</Select.Option>
+            <Select.Option value='Travel'>Travel</Select.Option>
+            <Select.Option value='Investment'>Investment</Select.Option>
+            <Select.Option value='Short-Term Loan'>
+              Short-Term Loan
+            </Select.Option>
+            <Select.Option value='Long-Term Loan'>Long-Term Loan</Select.Option>
+            <Select.Option value='Miscellaneous'>Miscellaneous</Select.Option>
           </Select>
         </Form.Item>
 
@@ -78,7 +80,9 @@ function TransactionsModal({
         </Form.Item>
 
         <div className='flex justify-end'>
-          <button className='bg-blue-500 text-white'>Add</button>
+          <button className='bg-blue-500 text-white p-5 py-2 font-semibold rounded-xl'>
+            Add
+          </button>
         </div>
       </Form>
     </Modal>

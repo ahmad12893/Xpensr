@@ -27,7 +27,7 @@ function DefaultLayout(props: {
     }
   }, []);
 
-  console.log('User --->', user);
+  // console.log('User --->', user);
   /*
   -maintain color schema for background for consistency
   -have logo visible on top, as well as the buttons to take you to other parts of app

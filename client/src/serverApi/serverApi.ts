@@ -63,7 +63,7 @@ export const TransactionFunc = async (val: TransactionInterface) => {
       Authorization: `Bearer ${token}`,
     };
     //checking all headers, double checking in postman
-    console.log('Headers', headers);
+    // console.log('Headers', headers);
 
     const res = await axios.post('http://localhost:3001/add-transaction', val, {
       //add header here to ensure Authorization: Bearer with token is added every time you add a transaction, so that the transaction is not forbidden or unauthorised
