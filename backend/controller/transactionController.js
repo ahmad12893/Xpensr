@@ -11,7 +11,7 @@ next(error) basically passes the error to the middleware responsible for handlin
 
 const registerTransaction = async (req, res, next) => {
   try {
-    const result = await model.createOne(req.body);
+    const result = await model.createOne(req.body, req.user._id);
     res.status(201).json(result);
   } catch (error) {
     next(error);
@@ -20,7 +20,7 @@ const registerTransaction = async (req, res, next) => {
 
 const fetchTransaction = async (req, res, next) => {
   try {
-    const fetch = await model.getAll();
+    const fetch = await model.getAll(req.user._id);
     res.status(200).json(fetch);
   } catch (error) {
     next(error);

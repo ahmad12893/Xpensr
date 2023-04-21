@@ -7,16 +7,20 @@ const transactionSchema = new mongoose.Schema({
   date: { type: String, required: true },
   reference: { type: String, required: true },
   description: { type: String, required: true },
+  user: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'User',
+  },
 });
 
 const Transaction = mongoose.model('Transaction', transactionSchema);
 
-const getAll = () => {
-  return Transaction.find();
+const getAll = (userId) => {
+  return Transaction.find({ user: userId });
 };
 
-const createOne = (transaction) => {
-  const newTransaction = new Transaction(transaction);
+const createOne = (transaction, userId) => {
+  const newTransaction = new Transaction({ ...transaction, user: userId });
   return newTransaction.save();
 };
 
