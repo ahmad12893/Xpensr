@@ -1,12 +1,13 @@
 import React, { useState } from 'react';
 import { Modal, Form, Input, Select } from 'antd';
 import { TransactionInterface } from '../interfaces/transaction';
-import { TransactionFunc } from '../serverApi/serverApi';
+import { TransactionPostFunc } from '../serverApi/serverApi';
 import { TransactionsModalProps } from '../interfaces/transactionModalProps';
 
 function TransactionsModal({
   transactionModal,
   setTransactionModal,
+  handleAddedTransaction,
 }: TransactionsModalProps) {
   //loading for spinner component
   const [loading, setLoading] = useState(false);
@@ -21,7 +22,8 @@ function TransactionsModal({
       setTimeout(
         async () => {
           //execute login when the timer runs fully
-          await TransactionFunc(values);
+          await TransactionPostFunc(values);
+          handleAddedTransaction(values);
           //stop loading when timer is done
           setLoading(false);
         }, //add a function to simulate random loading for a couple seconds

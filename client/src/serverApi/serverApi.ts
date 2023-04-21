@@ -54,7 +54,7 @@ export const LoginFunc = async (
   }
 };
 
-export const TransactionFunc = async (val: TransactionInterface) => {
+export const TransactionPostFunc = async (val: TransactionInterface) => {
   try {
     //first get the token
     const token = localStorage.getItem('xpensr-token');
@@ -72,5 +72,27 @@ export const TransactionFunc = async (val: TransactionInterface) => {
     message.success('Transaction logged successfully');
   } catch (error) {
     message.error('Transaction could not be logged');
+  }
+};
+
+export const TransactionGetFunc = async () => {
+  try {
+    //first get the token
+    const token = localStorage.getItem('xpensr-token');
+    //add the authorization (like in postman header)
+    const headers = {
+      Authorization: `Bearer ${token}`,
+    };
+    //checking all headers, double checking in postman
+    // console.log('Headers', headers);
+
+    const res = await axios.get('http://localhost:3001/get-all-transactions', {
+      //add header here to ensure Authorization: Bearer with token is added every time you add a transaction, so that the transaction is not forbidden or unauthorised
+      headers,
+    });
+    return res.data;
+    //message getting in way of login message, removed
+  } catch (error) {
+    console.log(error);
   }
 };
