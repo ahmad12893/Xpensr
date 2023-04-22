@@ -3,6 +3,7 @@ import { Modal, Form, Input, Select } from 'antd';
 import { TransactionInterface } from '../interfaces/transaction';
 import { TransactionPostFunc } from '../serverApi/serverApi';
 import { TransactionsModalProps } from '../interfaces/transactionModalProps';
+import { HTMLInputTypeAttribute } from 'react';
 
 function TransactionsModal({
   transactionModal,
@@ -11,7 +12,6 @@ function TransactionsModal({
 }: TransactionsModalProps) {
   //loading for spinner component
   const [loading, setLoading] = useState(false);
-
   //need to create Transaction interface and transaction function for api
 
   const onFinish = async (values: TransactionInterface) => {
@@ -24,6 +24,8 @@ function TransactionsModal({
           //execute login when the timer runs fully
           await TransactionPostFunc(values);
           handleAddedTransaction(values);
+          //close the friggin modal on clicking add and submission
+          setTransactionModal(false);
           //stop loading when timer is done
           setLoading(false);
         }, //add a function to simulate random loading for a couple seconds
@@ -82,7 +84,11 @@ function TransactionsModal({
         </Form.Item>
 
         <div className='flex justify-end'>
-          <button className='bg-blue-500 text-white p-5 py-2 font-semibold rounded-xl'>
+          <button
+            className='bg-blue-500 text-white p-5 py-2 font-semibold rounded-xl'
+            type='submit'
+            // onClick={() => setTransactionModal(false)}
+          >
             Add
           </button>
         </div>

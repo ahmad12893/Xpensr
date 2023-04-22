@@ -5,6 +5,7 @@ import { TransactionGetFunc } from '../serverApi/serverApi';
 import { TransactionInterface } from '../interfaces/transaction';
 import { Table } from 'antd';
 import type { ColumnsType } from 'antd/es/table';
+import { FilterTwoTone } from '@ant-design/icons';
 
 function Home() {
   const [transactionModal, setTransactionModal] = useState<boolean>(false);
@@ -43,7 +44,10 @@ function Home() {
   return (
     <DefaultLayout>
       <div className='w-full flex flex-col'>
-        <div className='flex justify-end border border-gray-400 p-3 rounded-xl hover:shadow-md transition duration-500 w-full'>
+        <div className='flex justify-around border border-gray-400 p-3 rounded-xl hover:shadow-md transition duration-500 w-full'>
+          <div className='mt-2'>
+            <FilterTwoTone />
+          </div>
           <button
             className='bg-blue-400 p-4 text-white rounded-xl py-3 shadow-md hover:shadow-xl transition duration-500'
             onClick={() => setTransactionModal(true)}
