@@ -56,7 +56,7 @@ export default function Register() {
         ></lottie-player>
       </div>
 
-      <div className='h-[450px] w-[400px] bg-gray-400 rounded-md bg-clip-padding backdrop-filter backdrop-blur-sm bg-opacity-10 border border-none p-6 shadow-xl hover:bg-opacity-20 transition-all duration-500 hover:shadow-2xl'>
+      <div className='h-[530px] w-[400px] bg-gray-400 rounded-md bg-clip-padding backdrop-filter backdrop-blur-sm bg-opacity-10 border border-none p-6 shadow-xl hover:bg-opacity-20 transition-all duration-500 hover:shadow-2xl'>
         <h1 className='text-3xl text-white flex justify-center items-center font-semibold'>
           Register
         </h1>
@@ -78,6 +78,18 @@ export default function Register() {
           <Form.Item //password entry
             label={<span className='text-white font-semibold'>Password</span>}
             name='password'
+          >
+            <Input
+              className='bg-transparent border-4 text-white'
+              type='password'
+            />
+          </Form.Item>
+
+          <Form.Item //confirm password entry
+            label={
+              <span className='text-white font-semibold'>Confirm Password</span>
+            }
+            name='confirmPassword'
           >
             <Input
               className='bg-transparent border-4 text-white'

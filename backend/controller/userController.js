@@ -35,10 +35,18 @@ const loginUser = async (req, res, next) => {
 const registerUser = async (req, res, next) => {
   try {
     const emailExists = await model.emailExists(req.body.email);
-
+    const passwordsMatch = await model.passwordMatch(
+      req.body.password,
+      req.body.confirmPassword
+    );
     if (emailExists) {
       res.status(400).json({
         message: 'Email already in use / registered to the database',
+      });
+    }
+    if (!passwordsMatch) {
+      res.status(400).json({
+        message: 'Passwords do not match',
       });
     } else {
       const createUser = await model.createUser(req.body);

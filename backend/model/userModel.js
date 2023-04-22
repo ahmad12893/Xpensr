@@ -5,6 +5,7 @@ const userSchema = new mongoose.Schema({
   name: { type: String, required: true },
   email: { type: String, required: true },
   password: { type: String, required: true },
+  confirmPassword: { type: String, required: true },
 });
 
 const User = mongoose.model('User', userSchema);
@@ -27,4 +28,14 @@ const getUserById = async (_id) => {
   return User.findOne({ _id });
 };
 
-module.exports = { getUserByEmail, createUser, emailExists, getUserById };
+const passwordMatch = async (password, confirmPassword) => {
+  return password === confirmPassword;
+};
+
+module.exports = {
+  getUserByEmail,
+  createUser,
+  emailExists,
+  getUserById,
+  passwordMatch,
+};

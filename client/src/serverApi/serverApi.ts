@@ -15,7 +15,10 @@ export const RegisterFunc = async (
   navigate: NavigateFunction
 ) => {
   try {
-    await axios.post('http://localhost:3001/register', val);
+    if (val.password !== val.confirmPassword) {
+      message.error('Passwords do not match, please try again');
+      return;
+    } else await axios.post('http://localhost:3001/register', val);
     message.success('Registration successful! Redirecting to login');
     navigate('/login');
   } catch (error) {
