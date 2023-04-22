@@ -16,9 +16,12 @@ const transactionSchema = new mongoose.Schema({
 
 const Transaction = mongoose.model('Transaction', transactionSchema);
 
-const getAll = async (userId, days, startDate, endDate) => {
+const getAll = async (userId, days, startDate, endDate, type, category) => {
   //create a conditional date, because it may not be normally present
   let dateCondition;
+  // console.log('dateCondition:', dateCondition);
+  // console.log('typeCondition:', type && type !== 'all' && { type });
+
   //if a start data and a end date is present, then set the date conditon
   if (startDate && endDate) {
     dateCondition = {
@@ -37,12 +40,25 @@ const getAll = async (userId, days, startDate, endDate) => {
   } else {
     dateCondition = {}; //otherwise dont do shit
   }
+  // const query = {
+  //   user: userId,
+  //   ...dateCondition,
+  //   ...(type && type !== 'all' && { type }),
+  // };
 
+  // console.log('Final query:', query);
+
+  // const transactions = await Transaction.find(query);
+  let typeCondition = type && type !== 'All' ? { type } : {};
+  let categoryCondition = category && category !== 'All' ? { category } : {};
   const transactions = await Transaction.find({
-    user: userId,//still find the user by the user id, so we can isolate transactions by user
-    ...dateCondition,//but push this stupid thing into it too
+    user: userId, //still find the user by the user id, so we can isolate transactions by user
+    ...dateCondition, //but push this stupid thing into it too
+    ...typeCondition,
+    ...categoryCondition,
   });
-  return transactions;//get all the transactions back
+
+  return transactions; //get all the transactions back
 };
 
 const createOne = (transaction, userId) => {
