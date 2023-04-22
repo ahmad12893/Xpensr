@@ -3,7 +3,7 @@ import { Modal, Form, Input, Select } from 'antd';
 import { TransactionInterface } from '../interfaces/transaction';
 import { TransactionPostFunc } from '../serverApi/serverApi';
 import { TransactionsModalProps } from '../interfaces/transactionModalProps';
-import { HTMLInputTypeAttribute } from 'react';
+
 
 function TransactionsModal({
   transactionModal,

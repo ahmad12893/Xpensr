@@ -78,7 +78,7 @@ export const TransactionPostFunc = async (val: TransactionInterface) => {
   }
 };
 
-export const TransactionGetFunc = async () => {
+export const TransactionGetFunc = async (days: string) => {
   try {
     //first get the token
     const token = localStorage.getItem('xpensr-token');
@@ -92,6 +92,7 @@ export const TransactionGetFunc = async () => {
     const res = await axios.get('http://localhost:3001/get-all-transactions', {
       //add header here to ensure Authorization: Bearer with token is added every time you add a transaction, so that the transaction is not forbidden or unauthorised
       headers,
+      params: { days },
     });
     return res.data;
     //message getting in way of login message, removed

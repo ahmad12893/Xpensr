@@ -1,8 +1,8 @@
 import React, { useEffect } from 'react';
+import PopupState, { bindTrigger, bindMenu } from 'material-ui-popup-state';
 import { Button } from '@mui/material';
 import { Menu } from '@mui/material';
 import { MenuItem } from '@mui/material';
-import PopupState, { bindTrigger, bindMenu } from 'material-ui-popup-state';
 import { useNavigate } from 'react-router';
 
 function DefaultLayout(props: {
@@ -47,7 +47,11 @@ function DefaultLayout(props: {
             {(popupState) => (
               <>
                 {user && (
-                  <Button variant='contained' {...bindTrigger(popupState)}>
+                  <Button
+                    key={user._id}
+                    variant='contained'
+                    {...bindTrigger(popupState)}
+                  >
                     {user.name}
                   </Button>
                 )}

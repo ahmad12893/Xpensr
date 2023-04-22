@@ -20,7 +20,9 @@ const registerTransaction = async (req, res, next) => {
 
 const fetchTransaction = async (req, res, next) => {
   try {
-    const fetch = await model.getAll(req.user._id);
+    const days = parseInt(req.query.days, 10);
+    console.log('days:', days);
+    const fetch = await model.getAll(req.user._id, days);
     res.status(200).json(fetch);
   } catch (error) {
     next(error);
