@@ -19,7 +19,7 @@ function Login() {
     }
   });
 
-  //to navigate to home page after a successful login i.e. navigate('/') if successful
+  //to navigate to home page after a successful login i.e. navigate('/') if successful to navigate to home page
   const navigate = useNavigate();
 
   const onFinish = async (values: LoginInterface) => {

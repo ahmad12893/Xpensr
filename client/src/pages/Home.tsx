@@ -3,6 +3,8 @@ import DefaultLayout from '../components/DefaultLayout';
 import TransactionsModal from '../components/transactionsModal';
 import { TransactionGetFunc } from '../serverApi/serverApi';
 import { TransactionInterface } from '../interfaces/transaction';
+import { Table } from 'antd';
+import type { ColumnsType } from 'antd/es/table';
 
 function Home() {
   const [transactionModal, setTransactionModal] = useState<boolean>(false);
@@ -27,10 +29,21 @@ function Home() {
   make a modal pop up when the button is clicked
   create modal using ant design ui component
   */
+
+  //antd Table columns from antd UI webpage
+  const columns: ColumnsType<TransactionInterface> = [
+    { title: 'Amount', dataIndex: 'amount', key: 'amount' },
+    { title: 'Type', dataIndex: 'type', key: 'type' },
+    { title: 'Category', dataIndex: 'category', key: 'category' },
+    { title: 'Date', dataIndex: 'date', key: 'date' },
+    { title: 'Reference', dataIndex: 'reference', key: 'reference' },
+    { title: 'Description', dataIndex: 'description', key: 'description' },
+  ];
+
   return (
     <DefaultLayout>
       <div className='w-full flex flex-col'>
-        <div className='flex justify-end border border-gray-400 p-3 rounded-xl hover:shadow-md transition duration-500'>
+        <div className='flex justify-end border border-gray-400 p-3 rounded-xl hover:shadow-md transition duration-500 w-full'>
           <button
             className='bg-blue-400 p-4 text-white rounded-xl py-3 shadow-md hover:shadow-xl transition duration-500'
             onClick={() => setTransactionModal(true)}
@@ -38,19 +51,8 @@ function Home() {
             Log Transaction
           </button>
         </div>
-        <div>
-          {transactions.map((transaction) => (
-            <>
-              <div className='flex flex-row'>
-                <h1 className='ml-2'>{transaction.type}</h1>
-                <h1 className='ml-2'>{transaction.amount}</h1>
-                <h1 className='ml-2'>{transaction.date}</h1>
-                <h1 className='ml-2'>{transaction.description}</h1>
-                <h1 className='ml-2'>{transaction.reference}</h1>
-                <h1 className='ml-2'>{transaction.category}</h1>
-              </div>
-            </>
-          ))}
+        <div className='mt-3 hover:shadow-xl transition duration-500'>
+          <Table columns={columns} dataSource={transactions} />
         </div>
       </div>
 
