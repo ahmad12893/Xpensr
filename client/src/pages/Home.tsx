@@ -7,6 +7,7 @@ import { DatePicker, Select, Table } from 'antd';
 import type { ColumnsType } from 'antd/es/table';
 import moment from 'moment'; //moment js import required , dayjs aswel
 import dayjs from 'dayjs';
+import { BarChartOutlined, UnorderedListOutlined } from '@ant-design/icons';
 
 const { RangePicker } = DatePicker; // using antd RangePicker UI
 
@@ -17,7 +18,7 @@ function Home() {
   const [selectedRange, setSelectedRange] = useState<[string, string]>(); // range is 2 selected dates in string format
   const [type, setType] = useState('All');
   const [category, setCategory] = useState('All');
-
+  const [viewType, setViewType] = useState('table');
   useEffect(() => {
     // console.log(selectedRange);
     if (!selectedRange) return;
@@ -140,6 +141,20 @@ function Home() {
               <Select.Option value='Miscellaneous'>Miscellaneous</Select.Option>
             </Select>
           </div>
+          <div className='flex flex-row space-x-3 mt-5 border p-2 rounded-xl hover:shadow-xl transition duration-500'>
+            <div className=''>
+              <UnorderedListOutlined
+                className='opacity-50 hover:opacity-100 transition duration-300'
+                onClick={() => setViewType('table')}
+              />
+            </div>
+            <div>
+              <BarChartOutlined
+                className='opacity-50 hover:opacity-100 transition duration-300'
+                onClick={() => setViewType('analytics')}
+              />
+            </div>
+          </div>
           <button
             className='bg-gradient-to-t from-indigo-600 to-teal-300 pl-2 pr-2 text-white rounded-xl py-3 shadow-md hover:shadow-xl transition duration-500 active:shadow-inherit opacity-75 hover:opacity-100'
             onClick={() => setTransactionModal(true)}
@@ -147,15 +162,19 @@ function Home() {
             Log Transaction
           </button>
         </div>
-        <div className='mt-3 hover:shadow-xl transition duration-500 rounded-lg'>
-          <Table
-            columns={columns}
-            dataSource={transactions}
-            key={
-              type + frequency + (selectedRange ? selectedRange.join('') : '')
-            }
-          />
-        </div>
+        {viewType === 'table' ? (
+          <div className='mt-3 hover:shadow-xl transition duration-500 rounded-lg'>
+            <Table
+              columns={columns}
+              dataSource={transactions}
+              key={
+                type + frequency + (selectedRange ? selectedRange.join('') : '')
+              }
+            />
+          </div>
+        ) : (
+          'lol dawgy thought he would see somethin but got text instead'
+        )}
       </div>
 
       {transactionModal && (
