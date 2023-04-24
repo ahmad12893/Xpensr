@@ -54,7 +54,7 @@ function Analytics({ transactions }: any) {
     'Food',
     'Entertainment',
     'Travel',
-    'Invesment',
+    'Investment',
     'Short-Term Loan',
     'Long-Term Loan',
     'Miscellaneous',
@@ -141,7 +141,7 @@ function Analytics({ transactions }: any) {
             return (
               <>
                 <p className='text-center'>{category}</p>
-                <div className='w-[700px] hover:shadow-xl transition duration-500 rounded-lg animate-fade-in border p-5 border-gray-200'>
+                <div className='w-[1000px] hover:shadow-xl transition duration-500 rounded-lg animate-fade-in border p-5 border-gray-200'>
                   <Progress
                     percent={+((amount / totalIncomeValue) * 100).toFixed(0)}
                   />
@@ -172,7 +172,7 @@ function Analytics({ transactions }: any) {
             return (
               <>
                 <p className='text-center'>{category}</p>
-                <div className='w-[700px] hover:shadow-xl transition duration-500 rounded-lg animate-fade-in border p-5 border-gray-200'>
+                <div className='w-[1000px] hover:shadow-xl transition duration-500 rounded-lg animate-fade-in border p-5 border-gray-200'>
                   <Progress
                     percent={+((amount / totalExpenseValue) * 100).toFixed(0)}
                   />
