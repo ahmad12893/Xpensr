@@ -21,14 +21,14 @@ function Home() {
   const [category, setCategory] = useState('All'); //category filter state
   const [viewType, setViewType] = useState('table'); // viewtype for transition
 
-  useEffect(() => {
-    // console.log(selectedRange);
-    if (!selectedRange) return;
-    const start = moment(selectedRange[0]);
-    const end = moment(selectedRange[1]);
-    const diff = end.diff(start, 'days');
-    // console.log(diff);
-  }, [selectedRange]);
+  // useEffect(() => {
+  //   // console.log(selectedRange);
+  //   if (!selectedRange) return;
+  //   const start = moment(selectedRange[0]);
+  //   const end = moment(selectedRange[1]);
+  //   const diff = end.diff(start, 'days');
+  //   // console.log(diff);
+  // }, [selectedRange]);
 
   const getDateFromFrequency = (frequency: string): Date => {
     const days = parseInt(frequency); //turn frequency string to interger to feet setDate()
@@ -39,16 +39,22 @@ function Home() {
 
   useEffect(() => {
     // console.log('Types:', type);
+    //
     const range = selectedRange || [
-      dayjs().subtract(parseInt(frequency), 'day').format('YYYY-MM-DD'),
+      dayjs()
+        .subtract(frequency === 'custom' ? 0 : parseInt(frequency), 'day')
+        .format('YYYY-MM-DD'),
       dayjs().format('YYYY-MM-DD'), //designate format
     ];
 
+    console.log(range);
+
     TransactionGetFunc(frequency, type, category, range)
       .then((data: any) => {
-        // console.log('Data:', data);
+        console.log('Data:', data);
         // console.log('Frequency, Type, Range:', frequency, type, range);
-        setTransactions(data);
+        // add keys for antd's table to use when mapping
+        setTransactions(data.map((data: any) => ({ ...data, key: data._id })));
       })
       .catch((error) => console.log(error));
   }, [frequency, selectedRange, type, category]);
@@ -90,7 +96,7 @@ function Home() {
   return (
     <DefaultLayout>
       <div className='w-full flex flex-col'>
-        <div className='flex justify-between border border-gray-400 p-3 rounded-xl hover:shadow-md transition duration-500 w-full'>
+        <div className='flex justify-between border border-gray-400 p-3 rounded-xl hover:shadow-md transition duration-500 w-full  '>
           <div className='flex flex-col'>
             <h4 className='font-semibold text-center text-gray-500 '>Date</h4>
             <Select
@@ -145,7 +151,7 @@ function Home() {
               <Select.Option value='Miscellaneous'>Miscellaneous</Select.Option>
             </Select>
           </div>
-          <div className='flex flex-row space-x-3 mt-5 border p-2 rounded-xl hover:shadow-xl transition duration-500'>
+          <div className='flex flex-row space-x-3 mt-5 border p-2 rounded-xl hover:shadow-xl transition duration-500 h-[45px] '>
             <div className=''>
               <UnorderedListOutlined
                 className='opacity-50 hover:opacity-100 transition duration-300'
@@ -160,7 +166,7 @@ function Home() {
             </div>
           </div>
           <button
-            className='bg-gradient-to-t from-indigo-600 to-teal-300 pl-2 pr-2 text-white rounded-xl py-3 shadow-md hover:shadow-xl transition duration-500 active:shadow-inherit opacity-75 hover:opacity-100'
+            className='bg-gradient-to-t from-indigo-600 to-teal-300 pl-2 pr-2 text-white rounded-xl py-3 shadow-md hover:shadow-xl transition duration-500 active:shadow-inherit opacity-75 hover:opacity-100 h-[50px] mt-3'
             onClick={() => setTransactionModal(true)}
           >
             Log Transaction

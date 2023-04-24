@@ -82,7 +82,7 @@ export const TransactionGetFunc = async (
   days: string, //pass the days as a argument, because it will always exist i.e. 10 days default
   type: string,
   category: string,
-  selectedRange?: [string, string] //pass range as a optional argument, only if the user selects a custom range
+  selectedRange: [string, string] //pass range as a optional argument, only if the user selects a custom range
 ) => {
   // console.log('TransactionGetFunc called with:', {
   //   days,
@@ -94,10 +94,12 @@ export const TransactionGetFunc = async (
 
     //here we define the query, using URLSearchParmas, which was advised by da bois, IDK how this thing works, but apparently it basically handles query parameters like days which i have in my backend, I need the transactions of the last 10 days, which is the default, in my Home.tsx
     const query = new URLSearchParams({ days, type, category });
-    if (selectedRange) {
+    console.log(selectedRange);
+    if (days === 'custom') {
       query.set('startDate', selectedRange[0]); //if a range of 2 dates is selected, set startdate to feed backed
       query.set('endDate', selectedRange[1]); //if a range of 2 dates is selected, set endDate to feed backend
     }
+
     //add the authorization (like in postman header)
     const headers = {
       Authorization: `Bearer ${token}`,
