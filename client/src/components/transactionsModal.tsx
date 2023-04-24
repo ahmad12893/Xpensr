@@ -1,13 +1,19 @@
 import React, { useState } from 'react';
 import { Modal, Form, Input, Select, Radio, RadioChangeEvent } from 'antd';
 import { TransactionInterface } from '../interfaces/transaction';
-import { TransactionPostFunc } from '../serverApi/serverApi';
+import {
+  TransactionEditFunc,
+  TransactionPostFunc,
+} from '../serverApi/serverApi';
 import { TransactionsModalProps } from '../interfaces/transactionModalProps';
 
 function TransactionsModal({
   transactionModal,
   setTransactionModal,
   handleAddedTransaction,
+  editTransaction,
+  setEditTransaction,
+  handleEditedTransaction,
 }: TransactionsModalProps) {
   //loading for spinner component
   const [loading, setLoading] = useState(false);
@@ -29,8 +35,15 @@ function TransactionsModal({
       setTimeout(
         async () => {
           //execute login when the timer runs fully
-          await TransactionPostFunc(values);
-          handleAddedTransaction(values);
+          if (editTransaction) {
+            const updatedTransactions = { ...editTransaction, ...values };
+            await TransactionEditFunc(updatedTransactions);
+            handleEditedTransaction({ ...editTransaction, ...values });
+            setEditTransaction(null);
+          } else {
+            await TransactionPostFunc(values);
+            handleAddedTransaction(values);
+          }
           //close the friggin modal on clicking add and submission
           setTransactionModal(false);
           //stop loading when timer is done
@@ -43,15 +56,20 @@ function TransactionsModal({
       setLoading(false);
     }
   };
+  // console.log(editTransaction);
 
   return (
     <Modal
-      title='Add Transaction'
+      title={editTransaction ? 'Edit Transaction' : 'Add Transaction'}
       open={transactionModal}
       onCancel={() => setTransactionModal(false)}
       footer={false}
     >
-      <Form layout='vertical' onFinish={onFinish}>
+      <Form
+        layout='vertical'
+        onFinish={onFinish}
+        initialValues={editTransaction}
+      >
         <Form.Item label='Amount' name='amount'>
           <Input type='text' placeholder='$1000' required />
         </Form.Item>

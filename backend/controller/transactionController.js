@@ -43,7 +43,30 @@ const fetchTransaction = async (req, res, next) => {
   }
 };
 
+const editTransaction = async (req, res, next) => {
+  try {
+    const { id: transactionId } = req.params;
+    // console.log(req.params);
+    const updatedTransaction = req.body;
+    const result = await model.editOne(transactionId, updatedTransaction);
+    res.status(200).json(result);
+  } catch (error) {
+    next(error);
+  }
+};
+
+const deleteTransaction = async (req, res, next) => {
+  try {
+    const { id: transactionId } = req.params;
+    const result = await model.deleteOne(transactionId);
+  } catch (error) {
+    next(error);
+  }
+};
+
 module.exports = {
   registerTransaction,
   fetchTransaction,
+  editTransaction,
+  deleteTransaction,
 };

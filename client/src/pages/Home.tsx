@@ -1,14 +1,23 @@
 import React, { useEffect, useRef, useState } from 'react';
 import DefaultLayout from '../components/DefaultLayout';
 import TransactionsModal from '../components/transactionsModal';
-import { TransactionGetFunc } from '../serverApi/serverApi';
+import {
+  TransactionDeleteFunc,
+  TransactionGetFunc,
+} from '../serverApi/serverApi';
 import { TransactionInterface } from '../interfaces/transaction';
 import { DatePicker, Select, Table } from 'antd';
 import type { ColumnsType } from 'antd/es/table';
 import moment from 'moment'; //moment js import required , dayjs aswel
 import dayjs from 'dayjs';
-import { BarChartOutlined, UnorderedListOutlined } from '@ant-design/icons';
+import {
+  BarChartOutlined,
+  DeleteOutlined,
+  EditOutlined,
+  UnorderedListOutlined,
+} from '@ant-design/icons';
 import Analytics from '../components/analytics';
+import transitions from '@material-ui/core/styles/transitions';
 
 const { RangePicker } = DatePicker; // using antd RangePicker UI
 
@@ -20,7 +29,8 @@ function Home() {
   const [type, setType] = useState('All'); //addition to set type
   const [category, setCategory] = useState('All'); //category filter state
   const [viewType, setViewType] = useState('table'); // viewtype for transition
-
+  const [editTransaction, setEditTransaction] =
+    useState<TransactionInterface | null>(null);
   // useEffect(() => {
   //   // console.log(selectedRange);
   //   if (!selectedRange) return;
@@ -47,11 +57,11 @@ function Home() {
       dayjs().format('YYYY-MM-DD'), //designate format
     ];
 
-    console.log(range);
+    // console.log(range);
 
     TransactionGetFunc(frequency, type, category, range)
       .then((data: any) => {
-        console.log('Data:', data);
+        // console.log('Data:', data);
         // console.log('Frequency, Type, Range:', frequency, type, range);
         // add keys for antd's table to use when mapping
         setTransactions(data.map((data: any) => ({ ...data, key: data._id })));
@@ -63,6 +73,29 @@ function Home() {
     if (new Date(data.date) >= getDateFromFrequency(frequency)) {
       setTransactions((prevState) => [...prevState, data]);
     }
+  };
+
+  const handleEditedTransaction = (
+    updatedTransaction: TransactionInterface
+  ) => {
+    setTransactions((prevState) =>
+      prevState.map((transaction) =>
+        transaction._id === updatedTransaction._id
+          ? updatedTransaction
+          : transaction
+      )
+    );
+  };
+
+  const handleDeletedTransaction = (
+    deletedTransaction: TransactionInterface
+  ) => {
+    setTransactions((prevState) => {
+      console.log(prevState);
+      return prevState.filter(
+        (transaction) => transaction._id !== deletedTransaction._id
+      );
+    });
   };
 
   /*
@@ -85,6 +118,30 @@ function Home() {
     },
     { title: 'Reference', dataIndex: 'reference', key: 'reference' },
     { title: 'Description', dataIndex: 'description', key: 'description' },
+    {
+      title: 'Edit | Delete',
+      render: (text, record) => {
+        return (
+          <div className='flex space-x-10'>
+            <EditOutlined
+              className='cursor-pointer'
+              onClick={() => {
+                // console.log(record);
+                setEditTransaction(record);
+                setTransactionModal(true);
+              }}
+            />
+            <DeleteOutlined
+              className='cursor-pointer'
+              onClick={() => {
+                TransactionDeleteFunc(record);
+                handleDeletedTransaction(record);
+              }}
+            />
+          </div>
+        );
+      },
+    },
   ];
 
   //filter by date tutorial
@@ -192,6 +249,10 @@ function Home() {
           transactionModal={transactionModal}
           setTransactionModal={setTransactionModal}
           handleAddedTransaction={handleAddedTransaction}
+          editTransaction={editTransaction}
+          setEditTransaction={setEditTransaction}
+          handleEditedTransaction={handleEditedTransaction}
+          // handleDeletedTransaction={handleDeletedTransaction}
         />
       )}
     </DefaultLayout>

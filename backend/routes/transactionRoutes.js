@@ -10,4 +10,12 @@ router.get(
   controller.fetchTransaction
 );
 
+router.put('/edit-transaction/:id', authMiddleware, controller.editTransaction);
+
+router.delete(
+  '/delete-transaction/:id',
+  authMiddleware,
+  controller.deleteTransaction
+);
+
 module.exports = router;

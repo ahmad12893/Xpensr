@@ -94,7 +94,7 @@ export const TransactionGetFunc = async (
 
     //here we define the query, using URLSearchParmas, which was advised by da bois, IDK how this thing works, but apparently it basically handles query parameters like days which i have in my backend, I need the transactions of the last 10 days, which is the default, in my Home.tsx
     const query = new URLSearchParams({ days, type, category });
-    console.log(selectedRange);
+    // console.log(selectedRange);
     if (days === 'custom') {
       query.set('startDate', selectedRange[0]); //if a range of 2 dates is selected, set startdate to feed backed
       query.set('endDate', selectedRange[1]); //if a range of 2 dates is selected, set endDate to feed backend
@@ -116,5 +116,56 @@ export const TransactionGetFunc = async (
     //message getting in way of login message, removed
   } catch (error) {
     console.log(error);
+  }
+};
+
+export const TransactionEditFunc = async (val: TransactionInterface) => {
+  try {
+    // console.log(val);
+    //first get the token
+    const token = localStorage.getItem('xpensr-token');
+    //add the authorization (like in postman header)
+    const headers = {
+      Authorization: `Bearer ${token}`,
+    };
+    //checking all headers, double checking in postman
+    // console.log('Headers', headers);
+
+    const res = await axios.put(
+      `http://localhost:3001/edit-transaction/${val._id}`, //requires val._id for transaction ID to update
+      val,
+      {
+        //add header here to ensure Authorization: Bearer with token is added every time you add a transaction, so that the transaction is not forbidden or unauthorised
+        headers,
+      }
+    );
+    message.success('Transaction edited successfully');
+  } catch (error) {
+    message.error('Transaction could not be edited');
+  }
+};
+
+export const TransactionDeleteFunc = async (val: TransactionInterface) => {
+  try {
+    // console.log(val);
+    //first get the token
+    const token = localStorage.getItem('xpensr-token');
+    //add the authorization (like in postman header)
+    const headers = {
+      Authorization: `Bearer ${token}`,
+    };
+    //checking all headers, double checking in postman
+    // console.log('Headers', headers);
+
+    const res = await axios.delete(
+      `http://localhost:3001/delete-transaction/${val._id}`, //requires val._id for transaction ID to update
+      {
+        //add header here to ensure Authorization: Bearer with token is added every time you add a transaction, so that the transaction is not forbidden or unauthorised
+        headers,
+      }
+    );
+    message.success('Transaction deleted successfully');
+  } catch (error) {
+    message.error('Transaction could not be deleted');
   }
 };

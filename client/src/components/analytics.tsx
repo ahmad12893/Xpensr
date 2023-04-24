@@ -119,8 +119,8 @@ function Analytics({ transactions }: any) {
           </div>
         </div>
       </div>
-      <div className='mt-5 hover:shadow-xl transition duration-500 rounded-lg animate-fade-in flex  flex-row justify-around border p-5 border-gray-200 '>
-        <div className='flex flex-col text-4xl hover:shadow-xl transition duration-500 rounded-lg animate-fade-in border p-5 border-gray-200  '>
+      <div className='mt-5 hover:shadow-xl transition duration-500 rounded-lg animate-fade-in flex  flex-row justify-around border p-5 border-gray-200'>
+        <div className='flex flex-col text-4xl hover:shadow-xl transition duration-500 rounded-lg animate-fade-in border p-5 border-gray-200   w-full md:w-1/2'>
           <p className='mb-7'>Income Categories</p>
           <hr />
           {categories.map((category) => {
@@ -139,19 +139,19 @@ function Analytics({ transactions }: any) {
               );
             // console.log(amount);
             return (
-              <>
+              <div key={category}>
                 <p className='text-center'>{category}</p>
-                <div className='w-[1000px] hover:shadow-xl transition duration-500 rounded-lg animate-fade-in border p-5 border-gray-200'>
+                <div className='flex hover:shadow-xl transition duration-500 rounded-lg animate-fade-in border p-5 border-gray-200'>
                   <Progress
                     percent={+((amount / totalIncomeValue) * 100).toFixed(0)}
                   />
                   {/* <p>{amount}</p> */}
                 </div>
-              </>
+              </div>
             );
           })}
         </div>
-        <div className='flex flex-col text-4xl hover:shadow-xl transition duration-500 rounded-lg animate-fade-in border p-5 border-gray-200'>
+        <div className='flex flex-col text-4xl hover:shadow-xl transition duration-500 rounded-lg animate-fade-in border p-5 border-gray-200  w-full md:w-1/2'>
           <p className='mb-7'>Expense Categories</p>
           <hr />
           {categories.map((category) => {
@@ -170,14 +170,15 @@ function Analytics({ transactions }: any) {
               );
             // console.log(amount);
             return (
-              <>
+              <div key={category}>
                 <p className='text-center'>{category}</p>
-                <div className='w-[1000px] hover:shadow-xl transition duration-500 rounded-lg animate-fade-in border p-5 border-gray-200'>
+                <div className=' flex hover:shadow-xl transition duration-500 rounded-lg animate-fade-in border p-5 border-gray-200'>
                   <Progress
                     percent={+((amount / totalExpenseValue) * 100).toFixed(0)}
+                    strokeColor='red'
                   />
                 </div>
-              </>
+              </div>
             );
           })}
         </div>

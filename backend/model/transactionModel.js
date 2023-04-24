@@ -66,4 +66,18 @@ const createOne = (transaction, userId) => {
   return newTransaction.save();
 };
 
-module.exports = { getAll, createOne };
+const editOne = (transactionId, updatedTransaction) => {
+  const options = { new: true };
+  //editing using _id of transaction, and setting it using $set mongoDB
+  return Transaction.findOneAndUpdate(
+    { _id: transactionId },
+    { $set: updatedTransaction },
+    options
+  );
+};
+
+const deleteOne = (transactionId) => {
+  return Transaction.findByIdAndDelete(transactionId);
+};
+
+module.exports = { getAll, createOne, editOne, deleteOne };
