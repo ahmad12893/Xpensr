@@ -12,7 +12,7 @@ const loginUser = async (req, res, next) => {
     if (user && (await bcrypt.compare(req.body.password, user.password))) {
       const token = jwt.sign({ _id: user._id }, SECRET_KEY, {
         //if yes, then a user object is returned which contains the id, name and email dawgy :D
-        expiresIn: '1h',
+        expiresIn: '10h',
       });
       res.status(200).json({
         success: true,

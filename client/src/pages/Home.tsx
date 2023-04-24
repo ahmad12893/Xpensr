@@ -8,6 +8,7 @@ import type { ColumnsType } from 'antd/es/table';
 import moment from 'moment'; //moment js import required , dayjs aswel
 import dayjs from 'dayjs';
 import { BarChartOutlined, UnorderedListOutlined } from '@ant-design/icons';
+import Analytics from '../components/analytics';
 
 const { RangePicker } = DatePicker; // using antd RangePicker UI
 
@@ -16,16 +17,17 @@ function Home() {
   const [transactions, setTransactions] = useState<TransactionInterface[]>([]);
   const [frequency, setFrequency] = useState('10'); //will show all transactions in the last 10 days
   const [selectedRange, setSelectedRange] = useState<[string, string]>(); // range is 2 selected dates in string format
-  const [type, setType] = useState('All');
-  const [category, setCategory] = useState('All');
-  const [viewType, setViewType] = useState('table');
+  const [type, setType] = useState('All'); //addition to set type
+  const [category, setCategory] = useState('All'); //category filter state
+  const [viewType, setViewType] = useState('table'); // viewtype for transition
+
   useEffect(() => {
     // console.log(selectedRange);
     if (!selectedRange) return;
     const start = moment(selectedRange[0]);
     const end = moment(selectedRange[1]);
     const diff = end.diff(start, 'days');
-    console.log(diff);
+    // console.log(diff);
   }, [selectedRange]);
 
   const getDateFromFrequency = (frequency: string): Date => {
@@ -88,9 +90,9 @@ function Home() {
   return (
     <DefaultLayout>
       <div className='w-full flex flex-col'>
-        <div className='flex justify-around border border-gray-400 p-3 rounded-xl hover:shadow-md transition duration-500 w-full'>
+        <div className='flex justify-between border border-gray-400 p-3 rounded-xl hover:shadow-md transition duration-500 w-full'>
           <div className='flex flex-col'>
-            <h4 className='font-semibold text-center'>Date</h4>
+            <h4 className='font-semibold text-center text-gray-500 '>Date</h4>
             <Select
               className='w-[140px]'
               value={frequency}
@@ -108,7 +110,7 @@ function Home() {
             )}
           </div>
           <div className='flex flex-col'>
-            <h4 className='font-semibold text-center'>Type</h4>
+            <h4 className='font-semibold text-center text-gray-500'>Type</h4>
             <Select
               className='w-[100px]'
               value={type}
@@ -120,7 +122,9 @@ function Home() {
             </Select>
           </div>
           <div className='flex flex-col'>
-            <h4 className='font-semibold text-center'>Category</h4>
+            <h4 className='font-semibold text-center text-gray-500'>
+              Category
+            </h4>
             <Select
               className='w-[200px]'
               value={category}
@@ -163,7 +167,7 @@ function Home() {
           </button>
         </div>
         {viewType === 'table' ? (
-          <div className='mt-3 hover:shadow-xl transition duration-500 rounded-lg'>
+          <div className='mt-3 hover:shadow-xl transition duration-500 rounded-lg animate-fade-in'>
             <Table
               columns={columns}
               dataSource={transactions}
@@ -173,7 +177,7 @@ function Home() {
             />
           </div>
         ) : (
-          'lol dawgy thought he would see somethin but got text instead'
+          <Analytics transactions={transactions} />
         )}
       </div>
 

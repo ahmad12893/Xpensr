@@ -1,9 +1,8 @@
 import React, { useState } from 'react';
-import { Modal, Form, Input, Select } from 'antd';
+import { Modal, Form, Input, Select, Radio, RadioChangeEvent } from 'antd';
 import { TransactionInterface } from '../interfaces/transaction';
 import { TransactionPostFunc } from '../serverApi/serverApi';
 import { TransactionsModalProps } from '../interfaces/transactionModalProps';
-
 
 function TransactionsModal({
   transactionModal,
@@ -12,6 +11,14 @@ function TransactionsModal({
 }: TransactionsModalProps) {
   //loading for spinner component
   const [loading, setLoading] = useState(false);
+  const [value, setValue] = useState('Income');
+  const options = ['Income', 'Expense'];
+
+  const onRadioChange = ({ target: { value } }: RadioChangeEvent) => {
+    console.log('radio1 checked', value);
+    setValue(value);
+  };
+
   //need to create Transaction interface and transaction function for api
 
   const onFinish = async (values: TransactionInterface) => {
@@ -46,14 +53,19 @@ function TransactionsModal({
     >
       <Form layout='vertical' onFinish={onFinish}>
         <Form.Item label='Amount' name='amount'>
-          <Input type='text' />
+          <Input type='text' placeholder='$1000' required />
         </Form.Item>
 
         <Form.Item label='Type' name='type'>
-          <Select>
-            <Select.Option value='Income'>Income</Select.Option>
-            <Select.Option value='Expense'>Expense</Select.Option>
-          </Select>
+          <Radio.Group
+            optionType='button'
+            buttonStyle='solid'
+            options={options}
+            onChange={onRadioChange}
+            value={value}
+          >
+            Expense
+          </Radio.Group>
         </Form.Item>
 
         <Form.Item label='Category' name='category'>
@@ -72,15 +84,19 @@ function TransactionsModal({
         </Form.Item>
 
         <Form.Item label='Date' name='date'>
-          <Input type='date' />
+          <Input type='date' required />
         </Form.Item>
 
         <Form.Item label='Reference' name='reference'>
-          <Input type='text' />
+          <Input type='text' required placeholder='Car Payment' />
         </Form.Item>
 
         <Form.Item label='Description' name='description'>
-          <Input type='text' />
+          <Input
+            type='text'
+            required
+            placeholder='E.g. Payment made to Ferrari'
+          />
         </Form.Item>
 
         <div className='flex justify-end'>
