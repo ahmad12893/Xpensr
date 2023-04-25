@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useContext, useEffect, useRef, useState } from 'react';
 import DefaultLayout from '../components/DefaultLayout';
 import TransactionsModal from '../components/transactionsModal';
 import {
@@ -18,12 +18,14 @@ import {
 } from '@ant-design/icons';
 import Analytics from '../components/analytics';
 import transitions from '@material-ui/core/styles/transitions';
+import Profile from './Profile';
+import TransactionContext from '../components/TransactionContext';
 
 const { RangePicker } = DatePicker; // using antd RangePicker UI
 
 function Home() {
   const [transactionModal, setTransactionModal] = useState<boolean>(false);
-  const [transactions, setTransactions] = useState<TransactionInterface[]>([]);
+  // const [transactions, setTransactions] = useState<TransactionInterface[]>([]);
   const [frequency, setFrequency] = useState('10'); //will show all transactions in the last 10 days
   const [selectedRange, setSelectedRange] = useState<[string, string]>(); // range is 2 selected dates in string format
   const [type, setType] = useState('All'); //addition to set type
@@ -31,6 +33,7 @@ function Home() {
   const [viewType, setViewType] = useState('table'); // viewtype for transition
   const [editTransaction, setEditTransaction] =
     useState<TransactionInterface | null>(null);
+  const { transactions, setTransactions } = useContext(TransactionContext);
   // useEffect(() => {
   //   // console.log(selectedRange);
   //   if (!selectedRange) return;
@@ -251,7 +254,6 @@ function Home() {
           <Analytics transactions={transactions} />
         )}
       </div>
-
       {transactionModal && (
         <TransactionsModal
           transactionModal={transactionModal}

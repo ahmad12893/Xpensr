@@ -1,10 +1,10 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import PopupState, { bindTrigger, bindMenu } from 'material-ui-popup-state';
 import { Button } from '@mui/material';
 import { Menu } from '@mui/material';
 import { MenuItem } from '@mui/material';
 import { useNavigate } from 'react-router';
-
+import Profile from '../pages/Profile';
 function DefaultLayout(props: {
   children:
     | string
@@ -16,6 +16,8 @@ function DefaultLayout(props: {
     | null
     | undefined;
 }) {
+  const [showProfile, setShowProfile] = useState(false);
+
   const navigate = useNavigate();
   const userJSON = localStorage.getItem('xpensr-user');
   const user =
@@ -40,7 +42,12 @@ function DefaultLayout(props: {
     <div className='flex flex-col m-0 w-screen h-screen content-between bg-gradient-to-t from-teal-300 to-indigo-600'>
       <div className='flex justify-between items-center text-3xl  ml-4 md:ml-8 text-white p-2 md:p-4 rounded-bl-xl rounded-br-xl text-opacity-50'>
         <div className='text-sm md:text-base'>
-          <h1 className='cursor-pointer text-3xl'>XPENSR</h1>
+          <h1
+            className='cursor-pointer text-3xl'
+            onClick={() => setShowProfile(false)}
+          >
+            XPENSR
+          </h1>
         </div>
         <div className='text-sm md:text-base p-3 w-[10%]'>
           <PopupState variant='popover' popupId='demo-popup-menu'>
@@ -56,8 +63,9 @@ function DefaultLayout(props: {
                   </Button>
                 )}
                 <Menu {...bindMenu(popupState)}>
-                  <MenuItem onClick={popupState.close}>Profile</MenuItem>
-                  <MenuItem onClick={popupState.close}>My Account</MenuItem>
+                  <MenuItem onClick={() => setShowProfile(true)}>
+                    Profile
+                  </MenuItem>
                   <MenuItem
                     onClick={() => {
                       localStorage.removeItem('xpensr-user');
@@ -74,7 +82,7 @@ function DefaultLayout(props: {
         </div>
       </div>
       <div className='flex self-center h-[100vh] border-none rounded-t-xl w-[95vw] mt-5 p-3 text-xl bg-white hover:shadow-2xl transition duration-500 opacity-95 hover:opacity-100 overflow-scroll'>
-        {props.children}
+        {showProfile ? <Profile /> : props.children}
       </div>
     </div>
   );
