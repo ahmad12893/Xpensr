@@ -158,7 +158,7 @@ function Home() {
 
   return (
     <DefaultLayout>
-      <div className='w-full flex flex-col'>
+      <div className='w-full flex flex-col animate-fade-in'>
         <div className='flex justify-between border border-gray-400 p-3 rounded-xl hover:shadow-md transition duration-500 w-full  '>
           <div className='flex flex-col'>
             <h4 className='font-semibold text-center text-gray-500 '>Date</h4>

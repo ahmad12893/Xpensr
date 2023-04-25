@@ -5,6 +5,7 @@ import { Menu } from '@mui/material';
 import { MenuItem } from '@mui/material';
 import { useNavigate } from 'react-router';
 import Profile from '../pages/Profile';
+
 function DefaultLayout(props: {
   children:
     | string
@@ -39,7 +40,7 @@ function DefaultLayout(props: {
   -delete key token and user from localstorage when logging out, and go back to front page
   */
   return (
-    <div className='flex flex-col m-0 w-screen h-screen content-between bg-gradient-to-t from-teal-300 to-indigo-600'>
+    <div className='flex flex-col m-0 w-screen h-screen content-between bg-gradient-to-t from-teal-300 to-indigo-600 overflow-hidden pb-5'>
       <div className='flex justify-between items-center text-3xl  ml-4 md:ml-8 text-white p-2 md:p-4 rounded-bl-xl rounded-br-xl text-opacity-50'>
         <div className='text-sm md:text-base'>
           <h1
@@ -63,7 +64,12 @@ function DefaultLayout(props: {
                   </Button>
                 )}
                 <Menu {...bindMenu(popupState)}>
-                  <MenuItem onClick={() => setShowProfile(true)}>
+                  <MenuItem
+                    onClick={() => {
+                      setShowProfile(true);
+                      popupState.close();
+                    }}
+                  >
                     Profile
                   </MenuItem>
                   <MenuItem
@@ -81,7 +87,7 @@ function DefaultLayout(props: {
           </PopupState>
         </div>
       </div>
-      <div className='flex self-center h-[100vh] border-none rounded-t-xl w-[95vw] mt-5 p-3 text-xl bg-white hover:shadow-2xl transition duration-500 opacity-95 hover:opacity-100 overflow-scroll'>
+      <div className='flex self-center h-[100vh] border-none rounded-t-3xl w-[95vw] mt-5 p-3 text-xl bg-white hover:shadow-2xl transition duration-500 opacity-95 hover:opacity-100 overflow-scroll hide-scrollbar'>
         {showProfile ? <Profile /> : props.children}
       </div>
     </div>

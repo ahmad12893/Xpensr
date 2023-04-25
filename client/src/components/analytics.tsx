@@ -61,7 +61,7 @@ function Analytics({ transactions }: any) {
   ];
   return (
     <>
-      <div className='mt-3 hover:shadow-xl transition duration-500 rounded-lg animate-fade-in flex justify-center'>
+      <div className='mt-3 hover:shadow-xl transition duration-500 rounded-lg animate-fade-in flex justify-center '>
         <div className='m-5 flex flex-col w-50 border p-5 border-gray-200 rounded-xl hover:shadow-xl transition duration-500'>
           <p className='text-center text-4xl'>
             Total Transactions : {totalTransactions}
