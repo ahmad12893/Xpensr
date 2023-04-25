@@ -4,11 +4,13 @@ import { TransactionInterface } from '../interfaces/transaction';
 import { useContext } from 'react';
 import { TransactionContext } from '../components/TransactionContext';
 import axios from 'axios';
+import Spinner from '../components/Spinner';
 
 //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
 function Profile() {
   const { transactions } = useContext(TransactionContext);
   const [storeResponse, setStoreResponse] = useState('');
+  const [loading, setLoading] = useState(false);
   const categories = [
     'Salary',
     'Food',
@@ -129,7 +131,7 @@ function Profile() {
       {
         headers: {
           'Content-Type': 'application/json',
-          Authorization: `Bearer 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`,
+          Authorization: `Bearer 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`,
         },
       }
     );
@@ -137,14 +139,24 @@ function Profile() {
   };
 
   useEffect(() => {
-    const getData = async () => {
-      const res = await fetchData();
-      setStoreResponse(res);
-      return res;
-    };
+    // const getData = async () => {
+    //   const res = await fetchData();
+    //   setStoreResponse(res);
+    //   return res;
+    // };
     getData();
   }, []);
 
+  const getData = async () => {
+    setLoading(true); // Show the spinner
+
+    const res = await fetchData();
+    // Simulate a 10-second delay before hiding the spinner and displaying the response
+    setTimeout(() => {
+      setLoading(false); // Hide the spinner
+      setStoreResponse(res);
+    }, 10000);
+  };
   return (
     <div className='flex h-screen w-screen flex-col items-center animate-fade-in'>
       <div>
@@ -219,11 +231,17 @@ function Profile() {
             })}
           </div>
         </div>
-        <div className='text-gray-500 opacity-50 hover:opacity-100 transition duration-300 hover:shadow-2xl border border-gray p-10 rounded-2xl m-5 text-center hover:bg-gray-200 pb-10 h-[500px]'>
-          <p>{storeResponse}</p>
-        </div>
+        {/* <div className='text-gray-500 opacity-50 hover:opacity-100 transition duration-300 hover:shadow-2xl border border-gray p-10 rounded-2xl m-5 text-center hover:bg-gray-200 pb-10 h-[700px]'> */}
+        {loading ? (
+          <Spinner />
+        ) : (
+          <div className='text-gray-500 opacity-50 hover:opacity-100 transition duration-300 hover:shadow-2xl border border-gray p-10 rounded-2xl m-5 text-center hover:bg-gray-200 pb-10 h-[700px]'>
+            <p>{storeResponse}</p>
+          </div>
+        )}
       </div>
     </div>
+    // </div>
   );
 }
 
