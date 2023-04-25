@@ -3,7 +3,7 @@ import React from 'react';
 import { TransactionInterface } from '../interfaces/transaction';
 
 function Analytics({ transactions }: any) {
-  console.log(transactions);
+  // console.log(transactions);
   const totalTransactions = transactions.length;
 
   const totalIncomeTrans = transactions.filter(
@@ -22,14 +22,14 @@ function Analytics({ transactions }: any) {
 
   const totalTransactionValue = transactions.reduce(
     (acc: number, transaction: TransactionInterface) => {
-      console.log('transaction amount:', transaction.amount);
-      console.log('acc:', acc);
+      // console.log('transaction amount:', transaction.amount);
+      // console.log('acc:', acc);
 
       return acc + +transaction.amount;
     },
     0
   );
-  console.log('totalTransactionvalue:', totalTransactionValue);
+  // console.log('totalTransactionvalue:', totalTransactionValue);
 
   const totalIncomeValue = transactions
     .filter((transaction: { type: string }) => transaction.type === 'Income')

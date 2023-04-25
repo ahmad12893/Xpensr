@@ -1,5 +1,4 @@
 const model = require('../model/transactionModel');
-
 /* Industry best practice:
 1. use res.json instead of res.send
 
@@ -58,7 +57,8 @@ const editTransaction = async (req, res, next) => {
 const deleteTransaction = async (req, res, next) => {
   try {
     const { id: transactionId } = req.params;
-    const result = await model.deleteOne(transactionId);
+    const result = await model.deleteOne({ _id: transactionId });
+    res.status(202).json(result);
   } catch (error) {
     next(error);
   }

@@ -6,6 +6,7 @@ import {
   TransactionPostFunc,
 } from '../serverApi/serverApi';
 import { TransactionsModalProps } from '../interfaces/transactionModalProps';
+import Spinner from './Spinner';
 
 function TransactionsModal({
   transactionModal,
@@ -21,7 +22,7 @@ function TransactionsModal({
   const options = ['Income', 'Expense'];
 
   const onRadioChange = ({ target: { value } }: RadioChangeEvent) => {
-    console.log('radio1 checked', value);
+    // console.log('radio1 checked', value);
     setValue(value);
   };
 
@@ -41,15 +42,15 @@ function TransactionsModal({
             handleEditedTransaction({ ...editTransaction, ...values });
             setEditTransaction(null);
           } else {
-            await TransactionPostFunc(values);
-            handleAddedTransaction(values);
+            const createdTransaction = await TransactionPostFunc(values);//asynchronous nature of func, need to await when using
+            handleAddedTransaction(createdTransaction); //this newly created thing is 
           }
           //close the friggin modal on clicking add and submission
           setTransactionModal(false);
           //stop loading when timer is done
           setLoading(false);
         }, //add a function to simulate random loading for a couple seconds
-        Math.floor(Math.random() * 2000) + 1000
+        Math.floor(Math.random() * 500) + 1000
       );
     } catch (error) {
       //if an error occurs, need to stop loading/spinner animation
@@ -65,6 +66,7 @@ function TransactionsModal({
       onCancel={() => setTransactionModal(false)}
       footer={false}
     >
+      {loading && <Spinner />}
       <Form
         layout='vertical'
         onFinish={onFinish}

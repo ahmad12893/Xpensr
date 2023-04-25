@@ -70,6 +70,7 @@ function Home() {
   }, [frequency, selectedRange, type, category]);
 
   const handleAddedTransaction = (data: TransactionInterface) => {
+    // console.log(data);
     if (new Date(data.date) >= getDateFromFrequency(frequency)) {
       setTransactions((prevState) => [...prevState, data]);
     }
@@ -120,6 +121,8 @@ function Home() {
     { title: 'Description', dataIndex: 'description', key: 'description' },
     {
       title: 'Edit | Delete',
+      // key: '',
+
       render: (text, record) => {
         return (
           <div className='flex space-x-10'>
@@ -233,10 +236,15 @@ function Home() {
           <div className='mt-3 hover:shadow-xl transition duration-500 rounded-lg animate-fade-in'>
             <Table
               columns={columns}
-              dataSource={transactions}
-              key={
-                type + frequency + (selectedRange ? selectedRange.join('') : '')
-              }
+              dataSource={transactions.map((transaction, index) => ({
+                ...transaction,
+                key: index,
+              }))}
+              // key={
+              //   type +
+              //   frequency +
+              //   (selectedRange ? selectedRange.join('') + category : '')
+              // }
             />
           </div>
         ) : (
@@ -252,7 +260,6 @@ function Home() {
           editTransaction={editTransaction}
           setEditTransaction={setEditTransaction}
           handleEditedTransaction={handleEditedTransaction}
-          // handleDeletedTransaction={handleDeletedTransaction}
         />
       )}
     </DefaultLayout>

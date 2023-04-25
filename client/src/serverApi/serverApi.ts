@@ -73,6 +73,7 @@ export const TransactionPostFunc = async (val: TransactionInterface) => {
       headers,
     });
     message.success('Transaction logged successfully');
+    return res.data; //resolve promise
   } catch (error) {
     message.error('Transaction could not be logged');
   }
@@ -147,6 +148,7 @@ export const TransactionEditFunc = async (val: TransactionInterface) => {
 
 export const TransactionDeleteFunc = async (val: TransactionInterface) => {
   try {
+    // console.log(val);
     // console.log(val);
     //first get the token
     const token = localStorage.getItem('xpensr-token');
