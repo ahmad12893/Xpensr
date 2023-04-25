@@ -122,14 +122,14 @@ function Profile() {
       {
         prompt: `You are a financial advisor with over 50 years of experience, your name is Xpensr (pronounced Spencer) and you will give me financial advice based on the general spending information given to you.My total transactional value is ${totalTransactionValue}, and my income from these transactions is ${totalIncomeValue}, my expense from these transactions is ${totalExpenseValue}.For spending, the categories are ${categories} and spending for each of the aforementioned categories was  ${categoryTotalSpent}, and for income, the categories are the same, but the spending was ${categoryTotalEarned}. Please give me detailed financial advice using the information given, make it as detailed as possible .`,
         model: 'text-davinci-003',
-        max_tokens: 200,
+        max_tokens: 800,
         n: 1,
         stop: '',
       },
       {
         headers: {
           'Content-Type': 'application/json',
-          Authorization: `Bearer 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`,
+          Authorization: `Bearer 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`,
         },
       }
     );
@@ -149,7 +149,7 @@ function Profile() {
     <div className='flex h-screen w-screen flex-col items-center animate-fade-in'>
       <div>
         <p
-          className='text-5xl text-gray-500 opacity-50 hover:opacity-100 transition duration-300 hover:shadow-2xl border border-gray p-10 rounded-2xl mt-20 hover:bg-gray-200'
+          className='text-5xl text-gray-500 opacity-50 hover:opacity-100 transition duration-300 hover:shadow-2xl border border-gray p-10 rounded-2xl mt-20 hover:bg-gray-200 text-center'
           ref={tiltDiv1}
         >
           Your Profile Summary
