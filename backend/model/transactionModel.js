@@ -38,7 +38,7 @@ const getAll = async (userId, days, startDate, endDate, type, category) => {
       date: { $gte: date }, //which is why we need to use $gte, and here we get all of the values greater than date = currentdate - days i.e. today is 22/04/2023 - 7 days, all values more recent or on the same day as 15/04/2023 will be shown
     };
   } else {
-    dateCondition = {}; //otherwise dont do shit
+    dateCondition = {}; //otherwise dont do anything
   }
   // const query = {
   //   user: userId,
@@ -53,7 +53,7 @@ const getAll = async (userId, days, startDate, endDate, type, category) => {
   let categoryCondition = category && category !== 'All' ? { category } : {};
   const transactions = await Transaction.find({
     user: userId, //still find the user by the user id, so we can isolate transactions by user
-    ...dateCondition, //but push this stupid thing into it too
+    ...dateCondition,
     ...typeCondition,
     ...categoryCondition,
   });

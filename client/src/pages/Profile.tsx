@@ -6,7 +6,6 @@ import { TransactionContext } from '../components/TransactionContext';
 import axios from 'axios';
 import Spinner from '../components/Spinner';
 
-//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
 function Profile() {
   const { transactions } = useContext(TransactionContext);
   const [storeResponse, setStoreResponse] = useState('');
@@ -131,7 +130,7 @@ function Profile() {
       {
         headers: {
           'Content-Type': 'application/json',
-          Authorization: `Bearer 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`,
+          Authorization: `Bearer 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`,
         },
       }
     );
@@ -231,7 +230,6 @@ function Profile() {
             })}
           </div>
         </div>
-        {/* <div className='text-gray-500 opacity-50 hover:opacity-100 transition duration-300 hover:shadow-2xl border border-gray p-10 rounded-2xl m-5 text-center hover:bg-gray-200 pb-10 h-[700px]'> */}
         {loading ? (
           <Spinner />
         ) : (

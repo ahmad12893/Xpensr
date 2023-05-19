@@ -47,7 +47,7 @@ function DefaultLayout(props: {
             className='cursor-pointer text-3xl'
             onClick={() => setShowProfile(false)}
           >
-            XPENSR
+            XPENSR - AI DRIVEN FINANCIAL ADVICE
           </h1>
         </div>
         <div className='text-sm md:text-base p-3 w-[10%]'>
