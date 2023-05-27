@@ -130,7 +130,7 @@ function Profile() {
       {
         headers: {
           'Content-Type': 'application/json',
-          Authorization: `Bearer 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`,
+          Authorization: `Bearer ${process.env.REACT_APP_OPENAI_SECRET_KEY}`,
         },
       }
     );

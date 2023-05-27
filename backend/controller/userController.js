@@ -2,7 +2,7 @@ const model = require('../model/userModel');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 
-const SECRET_KEY = process.env.SECRET_KEY || 'lalala this isnt secure';
+const SECRET_KEY = process.env.SECRET_KEY;
 
 const loginUser = async (req, res, next) => {
   try {
