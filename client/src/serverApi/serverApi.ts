@@ -18,7 +18,8 @@ export const RegisterFunc = async (
     if (val.password !== val.confirmPassword) {
       message.error('Passwords do not match, please try again');
       return;
-    } else await axios.post('http://localhost:3001/register', val);
+    } else
+      await axios.post('https://react-crud-s7nd.onrender.com/register', val);
     message.success('Registration successful! Redirecting to login');
     navigate('/login');
   } catch (error) {
@@ -43,7 +44,10 @@ export const LoginFunc = async (
   navigate: NavigateFunction
 ) => {
   try {
-    const res = await axios.post('http://localhost:3001/login', val);
+    const res = await axios.post(
+      'https://react-crud-s7nd.onrender.com/login',
+      val
+    );
     if (res.data.success) {
       localStorage.setItem('xpensr-user', JSON.stringify(res.data.user));
       localStorage.setItem('xpensr-token', res.data.token);
@@ -68,10 +72,14 @@ export const TransactionPostFunc = async (val: TransactionInterface) => {
     //checking all headers, double checking in postman
     // console.log('Headers', headers);
 
-    const res = await axios.post('http://localhost:3001/add-transaction', val, {
-      //add header here to ensure Authorization: Bearer with token is added every time you add a transaction, so that the transaction is not forbidden or unauthorised
-      headers,
-    });
+    const res = await axios.post(
+      'https://react-crud-s7nd.onrender.com/add-transaction',
+      val,
+      {
+        //add header here to ensure Authorization: Bearer with token is added every time you add a transaction, so that the transaction is not forbidden or unauthorised
+        headers,
+      }
+    );
     message.success('Transaction logged successfully');
     return res.data; //resolve promise
   } catch (error) {
@@ -108,11 +116,14 @@ export const TransactionGetFunc = async (
     //checking all headers, double checking in postman
     // console.log('Headers', headers);
 
-    const res = await axios.get('http://localhost:3001/get-all-transactions', {
-      //add header here to ensure Authorization: Bearer with token is added every time you add a transaction, so that the transaction is not forbidden or unauthorised
-      headers,
-      params: query, //fetch the parameters that match new URLSearchParams({ days });
-    });
+    const res = await axios.get(
+      'https://react-crud-s7nd.onrender.com/get-all-transactions',
+      {
+        //add header here to ensure Authorization: Bearer with token is added every time you add a transaction, so that the transaction is not forbidden or unauthorised
+        headers,
+        params: query, //fetch the parameters that match new URLSearchParams({ days });
+      }
+    );
     return res.data;
     //message getting in way of login message, removed
   } catch (error) {
@@ -133,7 +144,7 @@ export const TransactionEditFunc = async (val: TransactionInterface) => {
     // console.log('Headers', headers);
 
     const res = await axios.put(
-      `http://localhost:3001/edit-transaction/${val._id}`, //requires val._id for transaction ID to update
+      `https://react-crud-s7nd.onrender.com/edit-transaction/${val._id}`, //requires val._id for transaction ID to update
       val,
       {
         //add header here to ensure Authorization: Bearer with token is added every time you add a transaction, so that the transaction is not forbidden or unauthorised
@@ -160,7 +171,7 @@ export const TransactionDeleteFunc = async (val: TransactionInterface) => {
     // console.log('Headers', headers);
 
     const res = await axios.delete(
-      `http://localhost:3001/delete-transaction/${val._id}`, //requires val._id for transaction ID to update
+      `https://react-crud-s7nd.onrender.com/delete-transaction/${val._id}`, //requires val._id for transaction ID to update
       {
         //add header here to ensure Authorization: Bearer with token is added every time you add a transaction, so that the transaction is not forbidden or unauthorised
         headers,
