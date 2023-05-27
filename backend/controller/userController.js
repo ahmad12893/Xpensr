@@ -2,15 +2,13 @@ const model = require('../model/userModel');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 
-const SECRET_KEY = process.env.SECRET_KEY;
-
 const loginUser = async (req, res, next) => {
   try {
     //get user from database using the email they used to create the account
     const user = await model.getUserByEmail(req.body.email);
     //if the user with that email exists and if the password matches the hash
     if (user && (await bcrypt.compare(req.body.password, user.password))) {
-      const token = jwt.sign({ _id: user._id }, SECRET_KEY, {
+      const token = jwt.sign({ _id: user._id }, process.env.SECRET_KEY, {
         //if yes, then a user object is returned which contains the id, name and email dawgy :D
         expiresIn: '10h',
       });
